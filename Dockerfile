@@ -4,6 +4,7 @@ FROM httpd:2-alpine
 
 COPY --from=php /usr/local/bin/docker-php-source /usr/local/bin/
 COPY --from=php /usr/local/bin/docker-php-ext-* /usr/local/bin/
+COPY httpd.conf /usr/local/apache2/conf/httpd.conf
 
 ENV PHPIZE_DEPS \
     autoconf \
@@ -172,6 +173,12 @@ RUN set -eux; \
     # update pecl channel definitions https://github.com/docker-library/php/issues/443
     pecl update-channels; \
     rm -rf /tmp/pear ~/.pearrc; \
+    \
+    rm -rf /var/cache/apk/*; \
+    \
+    mkdir -p /var/www/html/public; \
+    echo '<?php phpinfo();' > /var/www/html/public/index.php; \
+    chown -R www-data:www-data /var/www; \
     \
     # smoke test
     php --version
