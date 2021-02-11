@@ -87,6 +87,9 @@ RUN set -eux; \
     zlib-dev \
     libmemcached-dev \
     postgresql-dev \
+    gmp \
+    zlib-dev \
+    libpng-dev \
     ; \
     \
     export CFLAGS="$PHP_CFLAGS" \
@@ -157,6 +160,12 @@ RUN set -eux; \
     \
     docker-php-ext-configure pgsql; \
     docker-php-ext-install pdo pdo_pgsql; \
+    \
+    docker-php-ext-configure bcmath; \
+    docker-php-ext-install bcmath; \
+    \
+    docker-php-ext-configure gd; \
+    docker-php-ext-install gd; \
     \
     docker-php-ext-enable \
     apcu \
