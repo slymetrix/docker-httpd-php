@@ -86,6 +86,7 @@ RUN set -eux; \
     apr-util-dev \
     zlib-dev \
     libmemcached-dev \
+    postgresql-dev \
     ; \
     \
     export CFLAGS="$PHP_CFLAGS" \
@@ -153,6 +154,9 @@ RUN set -eux; \
     pecl install --configureoptions 'enable-apcu-debug="no"' APCu-5.1.19; \
     pecl install igbinary-3.1.6; \
     pecl install  --configureoptions 'with-libmemcached-dir="no" with-zlib-dir="no" with-system-fastlz="no" enable-memcached-igbinary="yes" enable-memcached-msgpack="no" enable-memcached-json="yes" enable-memcached-protocol="no" enable-memcached-sasl="no" enable-memcached-session="no"' memcached-3.1.5; \
+    \
+    docker-php-ext-configure pgsql; \
+    docker-php-ext-install pdo pdo_pgsql; \
     \
     docker-php-ext-enable \
     apcu \
