@@ -90,6 +90,7 @@ RUN set -eux; \
     gmp \
     zlib-dev \
     libpng-dev \
+    zstd-dev \
     ; \
     \
     export CFLAGS="$PHP_CFLAGS" \
@@ -156,7 +157,8 @@ RUN set -eux; \
     \
     pecl install --configureoptions 'enable-apcu-debug="no"' APCu-5.1.19; \
     pecl install igbinary-3.1.6; \
-    pecl install  --configureoptions 'with-libmemcached-dir="no" with-zlib-dir="no" with-system-fastlz="no" enable-memcached-igbinary="yes" enable-memcached-msgpack="no" enable-memcached-json="yes" enable-memcached-protocol="no" enable-memcached-sasl="no" enable-memcached-session="no"' memcached-3.1.5; \
+    pecl install --configureoptions 'with-libmemcached-dir="no" with-zlib-dir="no" with-system-fastlz="no" enable-memcached-igbinary="yes" enable-memcached-msgpack="no" enable-memcached-json="yes" enable-memcached-protocol="no" enable-memcached-sasl="no" enable-memcached-session="no"' memcached-3.1.5; \
+    pecl install --configureoptions 'enable-redis-igbinary="yes" enable-redis-lzf="yes" enable-redis-zstd="yes"' redis-5.3.3; \
     \
     docker-php-ext-configure pgsql; \
     docker-php-ext-install pdo pdo_pgsql; \
@@ -171,6 +173,7 @@ RUN set -eux; \
     apcu \
     igbinary \
     memcached \
+    redis \
     ; \
     \
     runDeps="$( \
