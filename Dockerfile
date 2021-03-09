@@ -91,6 +91,7 @@ RUN set -eux; \
     zlib-dev \
     libpng-dev \
     zstd-dev \
+    icu-dev \
     ; \
     \
     export CFLAGS="$PHP_CFLAGS" \
@@ -168,6 +169,9 @@ RUN set -eux; \
     \
     docker-php-ext-configure gd; \
     docker-php-ext-install gd; \
+    \
+    docker-php-ext-configure intl; \
+    docker-php-ext-install intl; \
     \
     docker-php-ext-enable \
     apcu \
